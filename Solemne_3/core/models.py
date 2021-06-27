@@ -6,3 +6,14 @@ class Categoria(models.Model):
 
     def _str_(self):
         return self.nombreCategoria
+
+class Animal(models.Model):
+    nFicha = models.AutoField(primary_key = True, verbose_name="Numero de ficha") # Campo autoincremental.
+    #nFicha = models.CharField(max_length=6,primary_key=True, verbose_name="Numero de Ficha")
+    nombre = models.CharField(max_length=20, verbose_name="Nombre" )
+    edad = models.CharField(max_length=20, null=True, blank=True, verbose_name="Edad")
+    especie = models.CharField(max_length=20, null=True, blank=True, verbose_name="Especie")
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+
+    def _str_(self):
+        return self.nFicha
