@@ -24,3 +24,16 @@ def add_animal(request):
             datos['mensaje'] = "Animal agregado correctamente"
 
     return render(request, 'core/add_animal.html', datos)
+
+    #formulario para editar animal
+def edit_animal(request, pk):
+    animal = Animal.objects.get(nFicha=pk)
+    datos = {
+        'form': AnimalForm(instance=animal)
+    }
+    if request.method == 'POST':
+        formulario_edit = AnimalForm(data=request.POST, instance=animal)
+        if formulario_edit.is_valid:
+            formulario_edit.save()
+            datos['mensaje'] = "Animal editado correctamente"
+    return render(request, 'core/edit_animal.html', datos)
