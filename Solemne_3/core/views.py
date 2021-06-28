@@ -37,3 +37,13 @@ def edit_animal(request, pk):
             formulario_edit.save()
             datos['mensaje'] = "Animal editado correctamente"
     return render(request, 'core/edit_animal.html', datos)
+
+#formulario para eliminar animal
+def delete_animal(request, pk):
+    animal = Animal.objects.get(nFicha=pk)
+    animal.delete()
+    return redirect(to="views_animal")
+
+def home(request):
+
+    return render(request, 'core/home.html')
