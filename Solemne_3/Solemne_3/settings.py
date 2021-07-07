@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'rest_api',
-
-
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +130,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Nueva variable para Statics
 STATICFILES_DIR = ['static']
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
