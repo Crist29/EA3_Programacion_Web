@@ -28,3 +28,36 @@ def animales(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'PUT', 'DELETE'])
+def animal(request, pk):
+    try:
+        animal = Animal.objects.get(patente=pk)
+    except Animal.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    """
+    GET: Mostrar detalle de un animal segun nFicha
+    """
+    if request.method == 'GET':
+        serializer = AnimalSerializer(animal)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        """
+        PUT: Editar un animal por nFicha
+        """
+        data = JSONParser().parse(request)
+        serializer = AnimalSerializer(animal, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        """
+        DELETE: Borrar un animal por nFicha
+        """
+        animal.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
