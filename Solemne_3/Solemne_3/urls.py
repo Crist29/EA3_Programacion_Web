@@ -24,5 +24,6 @@ urlpatterns = [
     path('agregar_animal/', add_animal, name="add_animal" ),
     path('editar_animal/<pk>', edit_animal, name="edit_animal" ),
     path('eliminar_animal/<pk>', delete_animal, name="delete_animal" ),
-    path('views_animal/', views_animal, name="views_animal")
+    path('views_animal/', views_animal, name="views_animal"),
+    path('api/', include('rest_api.urls')),
 ]
